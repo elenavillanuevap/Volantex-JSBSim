@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<initialize name="ini03">
+  <running> 0 </running>
+  <vt unit="KTS"> 20 </vt>
+  <altitude unit="FT"> 1000 </altitude>
+  <alpha unit="DEG"> 3.9718 </alpha>
+  <beta  unit="DEG"> 0.0 </beta>
+  <gamma unit="DEG"> 0.0 </gamma>
+  <phi   unit="DEG"> 0.0 </phi>
+  <theta unit="DEG"> 3.9718 </theta>
+  <psi   unit="DEG"> 0.0 </psi>
+  <p unit="RAD/SEC"> 0.0 </p>
+  <q unit="RAD/SEC"> 0.0 </q>
+  <r unit="RAD/SEC"> 0.0 </r>
+</initialize>

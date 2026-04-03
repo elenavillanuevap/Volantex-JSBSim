@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<!-- Dedicated final propulsion variant for the closest-to-original trim case -->
+<electric_engine name="electric_1mw">
+  <power unit="WATTS"> 121.75 </power>
+</electric_engine>
+
+
+
+
+
+
+
+
+
+
+

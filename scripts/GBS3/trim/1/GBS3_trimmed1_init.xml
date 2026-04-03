@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<initialize name="GBS3_trimmed1_init">
+  <vt unit="KTS">20.0</vt>
+  <altitude unit="FT">1000.0</altitude>
+  <latitude unit="DEG">48.2778129</latitude>
+  <longitude unit="DEG">-53.91752033</longitude>
+  <psi unit="DEG">0.0</psi>
+  <phi unit="DEG">-0.11</phi>
+  <theta unit="DEG">7.81</theta>
+  <gamma unit="DEG">0.0</gamma>
+  <alpha-deg unit="DEG">7.81</alpha-deg>
+  <running>1</running>
+</initialize>
+

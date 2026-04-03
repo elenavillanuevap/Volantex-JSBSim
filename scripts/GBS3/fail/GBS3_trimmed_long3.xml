@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
+<runscript name="GBS_3 Trim Search">
+  
+  <description>Intento de trimado mediante inicialización</description>
+
+  <use aircraft="GBS_3_orig" initialize="ini03"/>
+
+  <run start="0.0" end="10.0" dt="0.01">
+    
+<property value="55.0">       ic/vt-kts     </property>
+    <property value="1000.0">     ic/h-sl-ft    </property>
+    
+    <property value="2.75879">     ic/alpha-deg  </property>
+    <property value="19.6156138">    ic/beta-deg   </property>
+    <property value="0.40133">    ic/q-rad_sec  </property>
+
+    
+    <property value="0.0">    ic/p-rad_sec  </property>
+
+    <property value="0">    ic/gamma-deg  </property>
+
+    <event name="Trimado al inicio">
+      <condition> simulation/sim-time-sec ge 1.0 </condition>
+      <set name="simulation/do_simple_trim" value="0"/>
+      <notify>
+        <property>velocities/vt-fps</property>
+        <property>attitude/theta-deg</property>
+        <property>attitude/phi-deg</property>
+        <property>fcs/elevator-pos-deg</property>.
+      </notify>
+    </event>
+
+  </run>
+</runscript>

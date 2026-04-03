@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSimScript.xsl"?>
+<runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
+    name="C172 elevator doublet paperlike (no retrim)">
+
+  <use aircraft="c172x" initialize="elevator_doublet_init"/>
+
+  <!-- Lo alargo a 6 s para ver el ring-down del short period -->
+  <run start="0.0" end="6.0" dt="0.0083333">
+
+    <property> simulation/notify-time-trigger </property>
+    <property value="1"> simulation/run_id </property>
+
+    <!-- Trim único (antes del input). Si tu MEX tolera 1.0 mejor, usa 1.0 -->
+    <event name="Trim">
+      <condition> simulation/sim-time-sec gt 0.5 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+    <!-- (Opcional) bloquear otros mandos -->
+    <event name="Lock other controls" continuous="true">
+      <condition> simulation/sim-time-sec ge 0.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.0"/>
+      <set name="fcs/rudder-cmd-norm"  value="0.0"/>
+    </event>
+
+    <!-- Baseline -->
+    <event name="Elevator baseline pre" continuous="true">
+      <condition> simulation/sim-time-sec lt 0.90 </condition>
+      <set name="fcs/elevator-cmd-norm" value="0.0"/>
+    </event>
+
+    <!-- 1) NEGATIVO grande: 0.90 -> 1.35 -->
+    <event name="Pulse 1 negative" continuous="true">
+      <condition>
+        simulation/sim-time-sec ge 0.90
+        simulation/sim-time-sec le 1.35
+      </condition>
+      <set name="fcs/elevator-cmd-norm">
+        <function>
+          <product>
+            <value>-0.32</value>
+            <sin>
+              <!-- FIX: removed <product> wrapper with single argument -->
+              <quotient>
+                <product>
+                  <difference>
+                    <property> simulation/sim-time-sec </property>
+                    <value> 0.90 </value>
+                  </difference>
+                  <value> 3.141592653589793 </value>
+                </product>
+                <value> 0.45 </value>
+              </quotient>
+            </sin>
+          </product>
+        </function>
+      </set>
+    </event>
+
+    <!-- 2) RAMPA UP: 1.35 -> 1.70 -->
+    <event name="Ramp up positive" continuous="true">
+      <condition>
+        simulation/sim-time-sec ge 1.35
+        simulation/sim-time-sec lt 1.70
+      </condition>
+      <set name="fcs/elevator-cmd-norm">
+        <function>
+          <product>
+            <value>0.34</value>
+            <product>
+              <value>0.5</value>
+              <difference>
+                <value>1.0</value>
+                <cos>
+                  <quotient>
+                    <product>
+                      <difference>
+                        <property> simulation/sim-time-sec </property>
+                        <value> 1.35 </value>
+                      </difference>
+                      <value> 3.141592653589793 </value>
+                    </product>
+                    <value> 0.35 </value>
+                  </quotient>
+                </cos>
+              </difference>
+            </product>
+          </product>
+        </function>
+      </set>
+    </event>
+
+    <!-- 2b) HOLD: 1.70 -> 1.95 -->
+    <event name="Hold positive" continuous="true">
+      <condition>
+        simulation/sim-time-sec ge 1.70
+        simulation/sim-time-sec lt 1.95
+      </condition>
+      <set name="fcs/elevator-cmd-norm" value="0.34"/>
+    </event>
+
+    <!-- 2c) RAMPA DOWN: 1.95 -> 2.20 -->
+    <event name="Ramp down to zero" continuous="true">
+      <condition>
+        simulation/sim-time-sec ge 1.95
+        simulation/sim-time-sec le 2.20
+      </condition>
+      <set name="fcs/elevator-cmd-norm">
+        <function>
+          <product>
+            <value>0.34</value>
+            <product>
+              <value>0.5</value>
+              <sum>
+                <value>1.0</value>
+                <cos>
+                  <quotient>
+                    <product>
+                      <difference>
+                        <property> simulation/sim-time-sec </property>
+                        <value> 1.95 </value>
+                      </difference>
+                      <value> 3.141592653589793 </value>
+                    </product>
+                    <value> 0.25 </value>
+                  </quotient>
+                </cos>
+              </sum>
+            </product>
+          </product>
+        </function>
+      </set>
+    </event>
+
+    <!-- 3) NEGATIVO pequeño: 2.20 -> 2.60 -->
+    <event name="Pulse 3 small negative" continuous="true">
+      <condition>
+        simulation/sim-time-sec ge 2.20
+        simulation/sim-time-sec le 2.60
+      </condition>
+      <set name="fcs/elevator-cmd-norm">
+        <function>
+          <product>
+            <value>-0.16</value>
+            <sin>
+              <quotient>
+                <product>
+                  <difference>
+                    <property> simulation/sim-time-sec </property>
+                    <value> 2.20 </value>
+                  </difference>
+                  <value> 3.141592653589793 </value>
+                </product>
+                <value> 0.40 </value>
+              </quotient>
+            </sin>
+          </product>
+        </function>
+      </set>
+    </event>
+
+    <!-- Baseline final -->
+    <event name="Elevator baseline post" continuous="true">
+      <condition> simulation/sim-time-sec gt 2.60 </condition>
+      <set name="fcs/elevator-cmd-norm" value="0.0"/>
+    </event>
+
+  </run>
+</runscript>

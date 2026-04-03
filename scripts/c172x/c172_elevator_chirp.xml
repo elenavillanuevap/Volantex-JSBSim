@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSimScript.xsl"?>
+<runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
+           name="C172 elevator chirp safe">
+
+  <use aircraft="c172x" initialize="elevator_doublet_init"/>
+
+  <run start="0.0" end="25.0" dt="0.0083333">
+
+    <!-- TRIM -->
+    <event name="Trim">
+      <condition> simulation/sim-time-sec gt 1.0 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+    <!-- CHIRP 0.1 -> 5 Hz en 20 s (empieza en 2s) -->
+    <event name="Elevator chirp" continuous="true">
+      <condition>
+        simulation/sim-time-sec ge 2.0
+        simulation/sim-time-sec le 22.0
+      </condition>
+
+      <set name="fcs/elevator-cmd-norm">
+        <function>
+          <product>
+
+            <!-- amplitud- -->
+            <value>0.20</value>
+
+            <sin>
+              <product>
+                <value>6.283185307179586</value> <!-- 2*pi -->
+                <sum>
+                  <!-- f0*tau -->
+                  <product>
+                    <value>0.1</value>
+                    <difference>
+                      <property>simulation/sim-time-sec</property>
+                      <value>2.0</value>
+                    </difference>
+                  </product>
+
+                  <!-- 0.5*k*tau^2 -->
+                  <product>
+                    <value>0.5</value>
+                    <value>0.245</value>
+                    <product>
+                      <difference>
+                        <property>simulation/sim-time-sec</property>
+                        <value>2.0</value>
+                      </difference>
+                      <difference>
+                        <property>simulation/sim-time-sec</property>
+                        <value>2.0</value>
+                      </difference>
+                    </product>
+                  </product>
+                </sum>
+              </product>
+            </sin>
+
+          </product>
+        </function>
+      </set>
+    </event>
+
+    <!-- Reset después del chirp -->
+    <event name="Reset elevator">
+      <condition> simulation/sim-time-sec gt 22.0 </condition>
+      <set name="fcs/elevator-cmd-norm" value="0.0"/>
+    </event>
+
+  </run>
+</runscript>

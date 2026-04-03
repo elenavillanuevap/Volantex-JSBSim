@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSimScript.xsl"?>
+<runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
+           name="C172 aileron chirp (paperlike, with initial trim)">
+
+  <use aircraft="c172x" initialize="elevator_doublet_init"/>
+
+  <!-- 12 s como en el plot del paper -->
+  <run start="0.0" end="12.0" dt="0.0083333">
+
+    <!-- TRIM INICIAL (una sola vez, antes del chirp) -->
+    <event name="Initial trim">
+      <condition> simulation/sim-time-sec gt 0.5 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+      <event name="Inital trim">
+      <condition> simulation/sim-time-sec gt 1 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+      <event name="Initial trim">
+      <condition> simulation/sim-time-sec gt 1.5 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+    <event name="Initial trim">
+      <condition> simulation/sim-time-sec gt 2 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+      <event name="Initial trim">
+      <condition> simulation/sim-time-sec gt 2.5 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+    <event name="Initial trim">
+      <condition> simulation/sim-time-sec gt 3 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+  <event name="Initial trim">
+      <condition> simulation/sim-time-sec gt 3.5 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+
+      <event name="Initial trim">
+      <condition> simulation/sim-time-sec gt 4 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+    </event>
+    <!-- Bloquear otros mandos -->
+    <event name="Lock other controls" continuous="true">
+      <condition> simulation/sim-time-sec ge 0.0 </condition>
+      <set name="fcs/elevator-cmd-norm" value="0.0"/>
+      <set name="fcs/rudder-cmd-norm" value="0.0"/>
+    </event>
+
+    
+
+  </run>
+</runscript>

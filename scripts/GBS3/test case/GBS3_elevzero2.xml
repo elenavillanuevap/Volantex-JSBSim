@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
 <runscript name="GBS3_elevzero2">
-  <description>Trim GBS3_trimmed2 and then force the elevator to zero.</description>
+  <description>Trim and then force the elevator to zero.</description>
 
   <use aircraft="GBS3_trimmed2" initialize="GBS3_trimmed2_init" />
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
 <runscript name="GBS3_elevdoublet2">
-  <description>Trim GBS3_trimmed2 and then apply an elevator doublet following the c172 elevator_doublet3 structure.</description>
+  <description>Trim and then apply an elevator doublet.</description>
 
   <use aircraft="GBS3_trimmed2" initialize="GBS3_trimmed2_init" />
 

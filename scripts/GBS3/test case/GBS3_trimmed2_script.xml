@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
+<runscript name="GBS3_trimmed2_script">
+  <description>Full trim </description>
+
+  <use aircraft="GBS3_trimmed2" initialize="GBS3_trimmed2_init" />
+
+  <run start="0.0" end="15" dt="0.01">
+    <property value="20.0">ic/vt-kts</property>
+    <property value="1000.0">ic/h-sl-ft</property>
+    <property value="7.81">ic/alpha-deg</property>
+    <property value="0.0">ic/beta-deg</property>
+    <property value="0.0">ic/gamma-deg</property>
+    <property value="7.81">ic/theta-deg</property>
+    <property value="-0.11">ic/phi-deg</property>
+    <property value="0.0">ic/psi-deg</property>
+    <property value="0.0">ic/p-rad_sec</property>
+    <property value="0.0">ic/q-rad_sec</property>
+    <property value="0.0">ic/r-rad_sec</property>
+    <property value="-0.0">fcs/aileron-cmd-norm</property>
+    <property value="0.00">fcs/rudder-cmd-norm</property>
+    <property value="-0.0">fcs/pitch-trim-cmd-norm</property>
+    <property value="0.0">fcs/roll-trim-cmd-norm</property>
+    <property value="0.0">fcs/yaw-trim-cmd-norm</property>
+    <property value="1">propulsion/engine[0]/set-running</property>
+    <property value="1.0">fcs/throttle-cmd-norm</property>
+
+
+
+    <event name="Early stabilizing trim">
+      <condition>simulation/sim-time-sec ge 0.02</condition>
+      <set name="simulation/do_simple_trim" value="1" />
+    </event>
+
+
+
+    <event name="Report state at one second">
+      <condition>simulation/sim-time-sec ge 1.0</condition>
+      <notify>
+        <property>simulation/sim-time-sec</property>
+        <property>velocities/vt-fps</property>
+        <property>position/h-sl-ft</property>
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+        <property>attitude/psi-deg</property>
+        <property>aero/alpha-deg</property>
+        <property>aero/beta-deg</property>
+        <property>velocities/p-rad_sec</property>
+        <property>velocities/q-rad_sec</property>
+        <property>velocities/r-rad_sec</property>
+        <property>fcs/left-aileron-pos-rad</property>
+        <property>fcs/elevator-pos-rad</property>
+        <property>fcs/rudder-pos-rad</property>
+        <property>fcs/throttle-pos-norm</property>
+      </notify>
+    </event>
+  </run>
+</runscript>

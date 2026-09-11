@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
+<runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
+           name="ex2400_trim_runscript_trim">
+  <description>Full trim validation for the Volantex Ranger 2400 EX2400 model at the VSPAERO reference condition.</description>
+
+  <use aircraft="ex2400_trim" initialize="ex2400_trim_init" />
+
+  <run start="0.0" end="15.0" dt="0.01">
+    <!-- Reference condition from VSPAERO: Vinf = 15 m/s = 29.1577 kt, level flight. -->
+    <property value="29.1577">ic/vt-kts</property>
+    <property value="328.084">ic/h-sl-ft</property>
+    <property value="0.40">ic/alpha-deg</property>
+    <property value="0.0">ic/beta-deg</property>
+    <property value="0.0">ic/gamma-deg</property>
+    <property value="0.40">ic/theta-deg</property>
+    <property value="0.0">ic/phi-deg</property>
+    <property value="0.0">ic/psi-deg</property>
+    <property value="0.0">ic/p-rad_sec</property>
+    <property value="0.0">ic/q-rad_sec</property>
+    <property value="0.0">ic/r-rad_sec</property>
+
+    <property value="0.0">fcs/elevator-cmd-norm</property>
+    <property value="0.0">fcs/aileron-cmd-norm</property>
+    <property value="0.0">fcs/rudder-cmd-norm</property>
+    <property value="0.0">fcs/pitch-trim-cmd-norm</property>
+    <property value="0.0">fcs/roll-trim-cmd-norm</property>
+    <property value="0.0">fcs/yaw-trim-cmd-norm</property>
+    <property value="1">propulsion/engine[0]/set-running</property>
+    <property value="0.25">fcs/throttle-cmd-norm</property>
+    <property value="0">gear/unit/WOW</property>
+    <property value="0">gear/unit[2]/WOW</property>
+
+    <event name="Set engine running">
+      <condition>simulation/sim-time-sec le 0.01</condition>
+      <set name="propulsion/engine[0]/set-running" value="1" />
+      <set name="fcs/throttle-cmd-norm" value="0.25" />
+    </event>
+
+    <event name="Early full trim">
+      <condition>simulation/sim-time-sec ge 0.020</condition>
+      <set name="simulation/do_simple_trim" value="1" />
+    </event>
+
+    <event name="Confirm full trim">
+      <condition>simulation/sim-time-sec ge 1.00</condition>
+      <set name="simulation/do_simple_trim" value="1" />
+      <notify>
+        <property>simulation/sim-time-sec</property>
+        <property>simulation/trim-completed</property>
+        <property>velocities/vt-fps</property>
+        <property>position/h-sl-ft</property>
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+        <property>aero/alpha-deg</property>
+        <property>aero/beta-deg</property>
+        <property>fcs/left-aileron-pos-rad</property>
+        <property>fcs/elevator-pos-rad</property>
+        <property>fcs/rudder-pos-rad</property>
+        <property>fcs/throttle-cmd-norm</property>
+        <property>fcs/throttle-pos-norm</property>
+        <property>propulsion/engine[0]/thrust-lbs</property>
+        <property>accelerations/udot-ft_sec2</property>
+        <property>accelerations/vdot-ft_sec2</property>
+        <property>accelerations/wdot-ft_sec2</property>
+        <property>accelerations/pdot-rad_sec2</property>
+        <property>accelerations/qdot-rad_sec2</property>
+        <property>accelerations/rdot-rad_sec2</property>
+      </notify>
+    </event>
+
+    <event name="Report final trimmed state">
+      <condition>simulation/sim-time-sec ge 3.00</condition>
+      <notify>
+        <property>simulation/sim-time-sec</property>
+        <property>simulation/trim-completed</property>
+        <property>velocities/vt-fps</property>
+        <property>velocities/vc-kts</property>
+        <property>position/h-sl-ft</property>
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+        <property>attitude/psi-deg</property>
+        <property>aero/alpha-deg</property>
+        <property>aero/beta-deg</property>
+        <property>velocities/p-rad_sec</property>
+        <property>velocities/q-rad_sec</property>
+        <property>velocities/r-rad_sec</property>
+        <property>fcs/left-aileron-pos-rad</property>
+        <property>fcs/elevator-pos-rad</property>
+        <property>fcs/rudder-pos-rad</property>
+        <property>fcs/throttle-cmd-norm</property>
+        <property>fcs/throttle-pos-norm</property>
+        <property>propulsion/engine[0]/thrust-lbs</property>
+      </notify>
+    </event>
+  </run>
+
+
+</runscript>

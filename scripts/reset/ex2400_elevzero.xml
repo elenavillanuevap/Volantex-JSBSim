@@ -3,7 +3,7 @@
 <runscript name="ex2400_elevzero">
   <description>Trim the EX2400 and then force the elevator to zero.</description>
 
-  <use aircraft="ex2400_v2_aerorptest" initialize="ex2400_trim_init" />
+  <use aircraft="ex2400_trim" initialize="ex2400_trim_init" />
 
   <run start="0.0" end="15.0" dt="0.01">
     <!-- Reference condition from VSPAERO: Vinf = 15 m/s = 29.1577 kt, level flight. -->

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
 <runscript name="ex2400_trim_elevchirp_test">
-  <description>CASE AUTO ext_lin_0p1_5p0_amp045: Trim EX2400_TRIM, apply elevator linear chirp 0.10-5.00 Hz from 2.0 s to 22.0 s.</description>
+  <description>Trim EX2400_TRIM, apply elevator linear chirp 0.10-5.00 Hz from 2.0 s to 22.0 s.</description>
 
   <use aircraft="ex2400_trim" initialize="ex2400_trim_init" />
 

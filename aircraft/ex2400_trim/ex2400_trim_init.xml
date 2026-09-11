@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<initialize name="ex2400_trim_init">
+  <vt unit="KTS">29.1577</vt>
+  <altitude unit="FT">1000.0</altitude>
+  <latitude unit="DEG">40.3320</latitude>
+  <longitude unit="DEG">-3.7650</longitude>
+  <psi unit="DEG">0.0</psi>
+  <phi unit="DEG">0.0</phi>
+  <theta unit="DEG">0.40</theta>
+  <gamma unit="DEG">0.0</gamma>
+  <alpha-deg unit="DEG">0.40</alpha-deg>
+  <beta unit="DEG">0.0</beta>
+  <p unit="RAD/SEC">0.0</p>
+  <q unit="RAD/SEC">0.0</q>
+  <r unit="RAD/SEC">0.0</r>
+  <running>1</running>
+</initialize>

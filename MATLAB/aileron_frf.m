@@ -1,6 +1,6 @@
 close all; clc; clear all
 
-%% HAMADA_AIL_EX2400_TRIM
+%% AILERON FRF
 % Validate the aileron response using the JSBSim frequency response
 
 sim1 = sim('ex2400_ail');

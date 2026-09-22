@@ -93,6 +93,9 @@ p1 = deg2rad(GBS3_OUT(:, col.p));
 d_a1 = rad2deg(GBS3_OUT(:, col.aileron_ctrl));
 pdot1 = deg2rad(GBS3_OUT(:, col.pdot));
 
+% delta_a_prop_deg = -0.50668; THIS IS TO ADD THE PROPELLER'S EFFECT
+% d_a1 = d_a1 + delta_a_prop_deg;
+
 fig = new_shared_x_figure(4, FIG_WIDTH_CM, FIG_HEIGHT_PER_TILE_CM);
 
 ax = nexttile;

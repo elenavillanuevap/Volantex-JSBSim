@@ -1,6 +1,6 @@
 close all; clc; clear all
 
-%% ELEVATOR FRF-EQUIVALENT LONGITUDINAL MODES
+%% FRF-EQUIVALENT MODES
 
 %% Aircraft and trim data
 g = 32.174;                    % ft/s^2
